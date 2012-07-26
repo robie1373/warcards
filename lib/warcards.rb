@@ -35,14 +35,6 @@ module Cardgame
         @ai_card
       end
 
-      def wassup?
-        puts "player: "
-        ap @player.stack.last
-        puts "ai: "
-        ap @ai.stack.last
-        winner
-      end
-
       def winner
         case
           when ai_card.value > player_card.value
