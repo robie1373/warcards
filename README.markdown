@@ -1,3 +1,5 @@
+# Warcards!
+## What is it?
 Use a deck of flash cards to play the card game war!
 
 Creates a deck of 52 flash cards and assigns them all suits and values.
@@ -10,8 +12,9 @@ correctly.
 
 Game ends when one of you is out of cards.
 
---------------Implementation concepts-------------
-Keep track of # of right and wrong answers for each card.
-- consider using ratio of right/wrong + #times seen to scale how often a card is seen.
-- You might make a pool of questions > 52 and select the question for each card out of the pool as it is 'flipped'
--
+## Implementation concepts
+* Keep track of # of right and wrong answers for each flash-card.
+
+* consider using ratio of right/wrong + #times seen to scale how often a flash-card is seen.
+
+* You might make a pool of questions > 52 and select the question for each card out of the pool as it is 'flipped'. Decouple the flash-card from the game card. the game cards are just a token to track game progress.
