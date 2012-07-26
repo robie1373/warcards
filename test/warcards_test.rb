@@ -55,6 +55,7 @@ module Cardgame
     end
 
     def test_foray_puts_winnings_into_discard
+      #TODO discard pile
       assert "implement this" == "done"
     end
 
