@@ -60,8 +60,8 @@ module Cardgame
     end
 
     def test_foray_puts_winnings_into_discard
-      @wargame.ai.stack = [Card.new(:suit => :hearts, :value => 2)]
-      @wargame.player.stack = [Card.new(:suit => :spade, :value => 11)]
+      @wargame.ai.stack = Card.new(:suit => :hearts, :value => 2)
+      @wargame.player.stack = Card.new(:suit => :spade, :value => 11)
       @wargame.foray.winner
 
       assert_equal 2, @wargame.ai.discard.length
