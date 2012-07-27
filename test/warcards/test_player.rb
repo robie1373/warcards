@@ -14,5 +14,6 @@ module Cardgame
       @wargame.deal
       assert_instance_of Card, @player.stack.first
     end
+
   end
 end

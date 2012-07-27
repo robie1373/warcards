@@ -33,7 +33,6 @@ module Cardgame
       assert 52 == (@wargame.ai.stack | @wargame.player.stack).length
     end
 
-
     def test_foray_picks_right_winner
       @wargame = Wargame.new
       @wargame.deal

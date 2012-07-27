@@ -2,7 +2,6 @@ require_relative 'warcards/deck'
 require_relative 'warcards/card'
 require_relative 'warcards/ai'
 require_relative 'warcards/player'
-#require 'ap'
 
 module Cardgame
   class Wargame
@@ -26,14 +25,6 @@ module Cardgame
         @player_card = @player.stack.pop
         @ai_card = @ai.stack.pop
       end
-
-      #def player_card
-      #  @player_card
-      #end
-
-      #def ai_card
-      #  @ai_card
-      #end
 
       def winner
         case
@@ -80,16 +71,3 @@ module Cardgame
 
   end
 end
-
-__END__
-
-require './warcards'
-game = Cardgame::Wargame.new
-game.deal
-game.player.stack.length
-game.foray.winner
-
-# This works
-# dudes = [:ai, :player]
-# => [:ai, :player]
-# dudes.each { |dude| p game.send(dude) }

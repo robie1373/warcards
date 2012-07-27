@@ -28,5 +28,6 @@ module Cardgame
         assert_equal 4, h[value]
       end
     end
+
   end
 end
