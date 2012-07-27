@@ -10,6 +10,11 @@ module Cardgame
       @stack
     end
 
+    def stack=(card)
+      @stack = Array.new
+      @stack << [card]
+    end
+
     def discard
       @discard
     end

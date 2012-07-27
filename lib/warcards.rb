@@ -27,27 +27,23 @@ module Cardgame
         @ai_card = @ai.stack.pop
       end
 
-      def player_card
-        @player_card
-      end
+      #def player_card
+      #  @player_card
+      #end
 
-      def ai_card
-        @ai_card
-      end
+      #def ai_card
+      #  @ai_card
+      #end
 
       def winner
         case
-          when ai_card.value > player_card.value
-            #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
+          when @ai_card[0].value > @player_card[0].value
             winner = @ai
-          when ai_card.value < player_card.value
-            #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
+          when @ai_card[0].value < @player_card[0].value
             winner = @player
-          when ai_card.value == player_card.value
-            #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
+          when @ai_card[0].value == @player_card[0].value
             winner = :war
           else
-            #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
             raise "Impossible battle. Something is amiss"
         end
 
