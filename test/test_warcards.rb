@@ -3,8 +3,6 @@ module Cardgame
   class TestWarCards < MiniTest::Unit::TestCase
     def setup
       @wargame = Wargame.new
-      #@ai = Ai.new
-      #@player = Player.new
     end
 
     def test_game_can_be_created
@@ -35,11 +33,6 @@ module Cardgame
       assert 52 == (@wargame.ai.stack | @wargame.player.stack).length
     end
 
-    #class TestWarCards < MiniTest::Unit::TestCase
-    #  def setup
-    #    @wargame = Wargame.new
-    #    @wargame.deal
-    #  end
 
     def test_foray_picks_right_winner
       @wargame = Wargame.new
@@ -54,32 +47,25 @@ module Cardgame
             assert_equal :war, @wargame.foray.winner[:winner]
         end
       end
-    #end
-
-    def test_foray_puts_winnings_into_discard
-      #@wargame.ai.stack = [Card.new(:suit => :hearts, :value => 2)]
-      #@wargame.player.stack = [Card.new(:suit => :spade, :value => 11)]
-      #@wargame.foray.winner
-      #assert_equal 5000, @wargame.ai.discard
-      @wargame.deal
-      ai_disc_size = 0
-      player_disc_size = 0
-      26.times do
-        if @wargame.foray.winner[:winner] == @wargame.ai
-          ai_disc_size += 2
-          assert_equal ai_disc_size, @wargame.ai.discard.length
-          assert_instance_of Card, @wargame.ai.discard.first
-        elsif @wargame.foray.winner[:winner] == @wargame.player
-          player_disc_size += 2
-          assert_equal ai_disc_size, @wargame.player.discard.length
-          assert_instance_of Card, @wargame.player.discard.first
-        else
-          "it was a draw"
-          assert TRUE == FALSE
-        end
-      end
     end
 
-   end
+    def test_foray_puts_winnings_into_discard_ai_wins
+      @wargame = Wargame.new
+      @wargame.deal
+      @wargame.ai.stack     = (Card.new(:suit => :clubs, :value => 12))
+      @wargame.player.stack = (Card.new(:suit => :hearts, :value => 3))
+      @wargame.foray.winner
+      assert_equal 2, @wargame.ai.discard.length
+    end
+
+    def test_foray_puts_winnings_into_discard_player_wins
+      @wargame = Wargame.new
+      @wargame.deal
+      @wargame.ai.stack     = (Card.new(:suit => :clubs, :value => 4))
+      @wargame.player.stack = (Card.new(:suit => :hearts, :value => 9))
+      @wargame.foray.winner
+      assert_equal 2, @wargame.player.discard.length
+    end
+
   end
 end

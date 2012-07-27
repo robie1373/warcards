@@ -3,7 +3,6 @@ module Cardgame
     def initialize
       @stack = Array.new
       @discard = Array.new
-      #@stack << Card.new(:suit => :diamonds, :value => 8)
     end
 
     def stack
@@ -12,7 +11,7 @@ module Cardgame
 
     def stack=(card)
       @stack = Array.new
-      @stack << [card]
+      @stack << card
     end
 
     def discard
