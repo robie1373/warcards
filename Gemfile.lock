@@ -1,0 +1,36 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    ZenTest (4.8.2)
+    ansi (1.4.3)
+    ap (0.1.1)
+      httparty (>= 0.7.7)
+    autotest (4.4.6)
+      ZenTest (>= 4.4.1)
+    builder (3.0.0)
+    crack (0.3.1)
+    hashie (1.2.0)
+    httparty (0.8.3)
+      multi_json (~> 1.0)
+      multi_xml
+    minitest (3.3.0)
+    minitest-reporters (0.9.0)
+      ansi
+      builder
+      minitest (>= 2.0, < 4.0)
+      powerbar
+    multi_json (1.3.6)
+    multi_xml (0.5.1)
+    powerbar (1.0.7)
+      ansi (~> 1.4.0)
+      hashie (>= 1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ap
+  autotest
+  crack
+  minitest
+  minitest-reporters
