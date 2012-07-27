@@ -2,7 +2,7 @@ require_relative 'warcards/deck'
 require_relative 'warcards/card'
 require_relative 'warcards/ai'
 require_relative 'warcards/player'
-require 'ap'
+#require 'ap'
 
 module Cardgame
   class Wargame
@@ -37,11 +37,11 @@ module Cardgame
 
       def winner
         case
-          when @ai_card[0].value > @player_card[0].value
+          when @ai_card.value > @player_card.value
             winner = @ai
-          when @ai_card[0].value < @player_card[0].value
+          when @ai_card.value < @player_card.value
             winner = @player
-          when @ai_card[0].value == @player_card[0].value
+          when @ai_card.value == @player_card.value
             winner = :war
           else
             raise "Impossible battle. Something is amiss"
@@ -52,7 +52,6 @@ module Cardgame
           discard(result)
 
         end
-
         result
       end
 
