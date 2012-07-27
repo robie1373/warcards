@@ -7,9 +7,9 @@ require 'ap'
 module Cardgame
   class Wargame
     def initialize
-      @deck   = Deck.new
+      @deck = Deck.new
       @player = Player.new
-      @ai     = Ai.new
+      @ai = Ai.new
     end
 
     def deal
@@ -22,7 +22,7 @@ module Cardgame
     class Foray
       def initialize (args)
         @player = args[:player]
-        @ai     = args[:ai]
+        @ai = args[:ai]
         @player_card = @player.stack.pop
         @ai_card = @ai.stack.pop
       end
@@ -39,10 +39,10 @@ module Cardgame
         case
           when ai_card.value > player_card.value
             #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
-            winner = :ai
+            winner = @ai
           when ai_card.value < player_card.value
             #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
-            winner = :player
+            winner = @player
           when ai_card.value == player_card.value
             #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
             winner = :war
@@ -50,7 +50,19 @@ module Cardgame
             #puts "battle: ai #{ai_card.value} Vs. player #{player_card.value}"
             raise "Impossible battle. Something is amiss"
         end
-        winner
+
+        result = {:winner => winner, :player_card => @player_card, :ai_card => @ai_card}
+        unless result[:winner] == :war
+          discard(result)
+
+        end
+
+        result
+      end
+
+      def discard(result)
+        result[:winner].discard << result[:ai_card]
+        result[:winner].discard << result[:player_card]
       end
 
     end
@@ -80,4 +92,9 @@ require './warcards'
 game = Cardgame::Wargame.new
 game.deal
 game.player.stack.length
-game.foray.wassup?
+game.foray.winner
+
+# This works
+# dudes = [:ai, :player]
+# => [:ai, :player]
+# dudes.each { |dude| p game.send(dude) }

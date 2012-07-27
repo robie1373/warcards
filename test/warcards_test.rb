@@ -3,8 +3,8 @@ module Cardgame
   class TestWarCards < MiniTest::Unit::TestCase
     def setup
       @wargame = Wargame.new
-      @ai      = Ai.new
-      @player  = Player.new
+      @ai = Ai.new
+      @player = Player.new
     end
 
     def test_game_can_be_created
@@ -40,25 +40,46 @@ module Cardgame
       assert_equal @wargame.ai.stack[0], @wargame.foray.ai_card
     end
 
+    class TestWarCards < MiniTest::Unit::TestCase
+      def setup
+        @wargame = Wargame.new
+        @wargame.deal
+      end
+
     def test_foray_picks_right_winner
-      @wargame.deal
+      #@wargame.deal
       26.times do
         case
           when @wargame.ai.stack.last.value > @wargame.player.stack.last.value
-            assert_equal :ai, @wargame.foray.winner
+            assert_equal @wargame.ai, @wargame.foray.winner[:winner]
           when @wargame.ai.stack.last.value < @wargame.player.stack.last.value
-            assert_equal :player, @wargame.foray.winner
+            assert_equal @wargame.player, @wargame.foray.winner[:winner]
           when @wargame.ai.stack.last.value == @wargame.player.stack.last.value
-            assert_equal :war, @wargame.foray.winner
+            assert_equal :war, @wargame.foray.winner[:winner]
         end
       end
     end
 
     def test_foray_puts_winnings_into_discard
-      #TODO discard pile
-      assert "implement this" == "done"
+      #@wargame.deal
+      ai_disc_size = 0
+      player_disc_size = 0
+      26.times do
+        if @wargame.foray.winner[:winner] == @wargame.ai
+          ai_disc_size += 2
+          assert_equal 2, @wargame.ai.discard.length
+          assert_instance_of Card, @wargame.ai.discard.first
+        elsif @wargame.foray.winner[:winner] == @wargame.player
+          player_disc_size += 2
+          assert_equal 2, @wargame.player.discard.length
+          assert_instance_of Card, @wargame.player.discard.first
+        else
+          "it was a draw"
+          assert TRUE == FALSE
+        end
+      end
     end
 
-
+   end
   end
 end
