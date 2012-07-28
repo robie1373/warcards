@@ -18,39 +18,51 @@ module Cardgame
       end
     end
 
+    def rearm(args)
+      args[:participant].discard.each do |card|
+        args[:participant].stack << card
+      end
+      args[:participant] = Array.new
+    end
+
     class Foray
       def initialize (args)
         @player = args[:player]
         @ai = args[:ai]
-        @player_card = @player.stack.pop
-        @ai_card = @ai.stack.pop
+        @player_cards = Array.new
+        @ai_cards = Array.new
+        show_cards
       end
 
       def winner
-        case
-          when @ai_card.value > @player_card.value
-            winner = @ai
-          when @ai_card.value < @player_card.value
-            winner = @player
-          when @ai_card.value == @player_card.value
-            winner = :war
-          else
-            raise "Impossible battle. Something is amiss"
+        while @ai_cards.last.value == @player_cards.last.value
+          war
         end
 
-        result = {:winner => winner, :player_card => @player_card, :ai_card => @ai_card}
-        unless result[:winner] == :war
-          discard(result)
-
+        if @ai_cards.last.value > @player_cards.last.value
+          winner = @ai
+        elsif @ai_cards.last.value < @player_cards.last.value
+          winner = @player
         end
-        result
+
+        {:winner => winner, :player_cards => @player_cards, :ai_cards => @ai_cards}
       end
 
-      def discard(result)
-        result[:winner].discard << result[:ai_card]
-        result[:winner].discard << result[:player_card]
+      def show_cards
+        @player_cards << @player.stack.pop
+        @ai_cards << @ai.stack.pop
       end
 
+      def war
+        show_cards
+      end
+
+
+    end
+
+    def discard(result)
+      result[:winner].discard << result[:ai_cards]
+      result[:winner].discard << result[:player_cards]
     end
 
     def foray
