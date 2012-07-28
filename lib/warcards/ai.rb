@@ -18,5 +18,13 @@ module Cardgame
       @discard
     end
 
+    def empty_discard
+      @discard = Array.new
+    end
+
+    def name
+      'H.E.L.P.E.R.'
+    end
+
   end
 end

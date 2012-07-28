@@ -15,5 +15,10 @@ module Cardgame
       assert_instance_of Card, @player.stack.first
     end
 
+    def test_player_has_a_name
+      assert_equal "Player", @wargame.player.name
+    end
+
+
   end
 end

@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative '../test_helper'
 module Cardgame
   class TestWarCards < MiniTest::Unit::TestCase
     def setup
@@ -119,8 +119,15 @@ module Cardgame
 
       @wargame.rearm(:participant => @wargame.ai)
       @wargame.rearm(:participant => @wargame.player)
+
       assert @wargame.ai.stack.length == 2, "ai stack has some cards now"
       assert @wargame.player.stack.length == 2, "player stack has some cards now"
+
+      assert_instance_of Card, @wargame.ai.stack.last
+      assert_instance_of Card, @wargame.player.stack.last
+
+      assert_equal 0, @wargame.ai.discard.length
+      assert_equal 0, @wargame.player.discard.length
     end
 
   end

@@ -1,4 +1,4 @@
-require_relative '../lib/warcards.rb'
+require_relative '../lib/warcards/wargame'
 require 'minitest/autorun'
 require 'minitest/unit'
 require 'minitest/reporters'

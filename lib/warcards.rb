@@ -1,85 +1,46 @@
-require_relative 'warcards/deck'
-require_relative 'warcards/card'
-require_relative 'warcards/ai'
-require_relative 'warcards/player'
+require_relative 'warcards/wargame'
 
 module Cardgame
-  class Wargame
-    def initialize
-      @deck = Deck.new
-      @player = Player.new
-      @ai = Ai.new
-    end
+  game = Wargame.new
+  game.deal
 
-    def deal
-      @deck.shuffle!
-      while @deck.length > 0
-        deck.length.even? ? @player.stack << @deck.pop : @ai.stack << @deck.pop
+  round = 1
+  #pca = []
+  #aca = []
+  pch = Hash.new(0)
+  ach = Hash.new(0)
+
+  def self.compile(stat, stat_hash)
+    stat_hash[stat] += 1
+  end
+
+  puts "Let's get this started."
+  while gets
+    if game.ai.stack.length == 1
+      game.rearm(:participant => game.ai)
+    elsif game.player.stack.length == 1
+      game.rearm(:participant => game.player)
+    else
+      result = game.foray.winner
+      game.discard(result)
+      if (result[:ai_cards].length + result[:player_cards].length) > 2
+        puts "\n"
+        puts '*@# There Was a WAR!! #@*'
+        puts "\n"
       end
+      puts "-----------------------------------------------------------"
+      puts "Round #{round}: #{result[:winner].name} won."
+      puts "Player card was #{result[:player_cards].last.value} of #{result[:player_cards].last.suit}. #{game.player.name} has #{game.player.stack.length} cards in the stack and #{game.player.discard.length} cards on the discard"
+      puts "AI card was #{result[:ai_cards].last.value} of #{result[:ai_cards].last.suit}. #{game.ai.name} has #{game.ai.stack.length} cards in the stack and #{game.ai.discard.length} cards on the discard"
+      puts ""
+      round += 1
+      pca = game.player.stack.length + game.player.discard.length
+      aca = game.ai.stack.length + game.ai.discard.length
+      foo = compile(pca, pch)
+      foo = compile(aca, ach)
+      puts "Player holdings distribution [holdings, #of times seen]: #{p pch.sort_by { |key, value| key }}"
+      puts ""
+      puts "AI holdings distribution: #{p ach.sort_by {|key, value| key}}"
     end
-
-    def rearm(args)
-      args[:participant].discard.each do |card|
-        args[:participant].stack << card
-      end
-      args[:participant] = Array.new
-    end
-
-    class Foray
-      def initialize (args)
-        @player = args[:player]
-        @ai = args[:ai]
-        @player_cards = Array.new
-        @ai_cards = Array.new
-        show_cards
-      end
-
-      def winner
-        while @ai_cards.last.value == @player_cards.last.value
-          war
-        end
-
-        if @ai_cards.last.value > @player_cards.last.value
-          winner = @ai
-        elsif @ai_cards.last.value < @player_cards.last.value
-          winner = @player
-        end
-
-        {:winner => winner, :player_cards => @player_cards, :ai_cards => @ai_cards}
-      end
-
-      def show_cards
-        @player_cards << @player.stack.pop
-        @ai_cards << @ai.stack.pop
-      end
-
-      def war
-        show_cards
-      end
-
-
-    end
-
-    def discard(result)
-      result[:winner].discard << result[:ai_cards]
-      result[:winner].discard << result[:player_cards]
-    end
-
-    def foray
-      Foray.new(:player => @player, :ai => @ai)
-    end
-
-    def ai
-      @ai
-    end
-
-    def deck
-      @deck
-    end
-
-    def player
-      @player
-    end
-
   end
 end
