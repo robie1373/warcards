@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Warcards by robie1373</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/robie1373/warcards">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Warcards</h1>
+            <h2>An addictive game to help slog through flash-card memorization</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/robie1373/warcards/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/robie1373/warcards/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>Warcards!</h1>
+
+<h2>What is it?</h2>
+
+<p>Use a deck of flash cards to play the card game war!</p>
+
+<p>Creates a deck of 52 flash cards and assigns them all suits and values.
+To win a round you must have the higher card <em>and</em> answer the opponents card correctly.
+Incorrect answers result in a draw.
+The opponent has a scaled-by-difficulty chance to answer your card correctly if it has the higher card.</p>
+
+<p>War is declared when you both have the same value card. To win War, you must answer 2 of your opponent's 3 cards
+correctly.</p>
+
+<p>Game ends when one of you is out of cards.</p>
+
+<h2>Implementation concepts</h2>
+
+<ul>
+<li><p>Keep track of # of right and wrong answers for each flash-card.</p></li>
+<li><p>consider using ratio of right/wrong + #times seen to scale how often a flash-card is seen.</p></li>
+<li><p>You might make a pool of questions &gt; 52 and select the question for each card out of the pool as it is 'flipped'. Decouple the flash-card from the game card. the game cards are just a token to track game progress.</p></li>
+</ul><h2>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'warcards'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install warcards
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>As of today, if you run bin/warcards it will play a game of war with you and quiz you as you play.</p>
+
+<h2>Contributing</h2>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/robie1373">robie1373</a> can be found on <a href="https://github.com/robie1373/warcards">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
