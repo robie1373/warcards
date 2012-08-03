@@ -16,8 +16,10 @@ Gem::Specification.new do |gem|
   gem.version       = Cardgame::VERSION
 
   # specify any dependencies here
-  gem.add_development_dependency 'rb-fsevent'
-  gem.add_development_dependency 'guard'
-  gem.add_development_dependency 'guard-minitest'
-  gem.add_development_dependency 'minitest-spec'
+  gem.add_development_dependency 'rb-fsevent', '~>0.9.1'
+  gem.add_development_dependency 'minitest-spec', '~>0.0.2'
+  gem.add_development_dependency 'minitest-reporters', '~>0.9.0'
+
+  # specify run dependencies here
+  gem.add_dependency 'querinator'
 end
