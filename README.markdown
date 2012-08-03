@@ -18,3 +18,29 @@ Game ends when one of you is out of cards.
 * consider using ratio of right/wrong + #times seen to scale how often a flash-card is seen.
 
 * You might make a pool of questions > 52 and select the question for each card out of the pool as it is 'flipped'. Decouple the flash-card from the game card. the game cards are just a token to track game progress.
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'warcards'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install warcards
+
+## Usage
+
+As of today, if you run bin/warcards it will play a game of war with you and quiz you as you play.
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
