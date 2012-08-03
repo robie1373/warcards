@@ -6,9 +6,9 @@ require_relative 'player'
 module Cardgame
   class Wargame
     def initialize
-      @deck = Deck.new
+      @deck   = Deck.new
       @player = Player.new
-      @ai = Ai.new
+      @ai     = Ai.new
     end
 
     def deal
@@ -28,16 +28,28 @@ module Cardgame
 
     class Foray
       def initialize (args)
-        @player = args[:player]
-        @ai = args[:ai]
+        @player       = args[:player]
+        @ai           = args[:ai]
         @player_cards = Array.new
-        @ai_cards = Array.new
+        @ai_cards     = Array.new
         show_cards
       end
 
       def winner
-        while @ai_cards.last.value == @player_cards.last.value
-          war
+        begin
+          while @ai_cards.last.value == @player_cards.last.value
+            war
+          end
+        rescue
+          if @ai.stack.length < 1
+            rearm(:participant => @ai)
+          elsif @player.stack.length < 1
+            rearm(:participant => @player)
+          else
+            raise "Something went wrong during war.
+Someone may be too low on ammunition.
+I'm sorry your war didn't work out."
+          end
         end
 
         if @ai_cards.last.value > @player_cards.last.value
@@ -46,7 +58,7 @@ module Cardgame
           winner = @player
         end
 
-        {:winner => winner, :player_cards => @player_cards, :ai_cards => @ai_cards}
+        { :winner => winner, :player_cards => @player_cards, :ai_cards => @ai_cards }
       end
 
       def show_cards
