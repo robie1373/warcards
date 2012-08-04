@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 module Cardgame
-  describe AI do
+  describe Ai do
     def setup
       @wargame = Wargame.new
       @ai = @wargame.ai
@@ -10,7 +10,7 @@ module Cardgame
 
     describe "#ai" do
       it "must be an instance of Ai" do
-      @ai.must_be_instance_of AI
+      @ai.must_be_instance_of Ai
       end
 
       it "must have a stack of Card objects" do
@@ -18,7 +18,7 @@ module Cardgame
       end
 
       it "must have a name" do
-        @wargame.ai.name.must_equal "H.E.L.P.E.R"
+        @wargame.ai.name.must_equal "H.E.L.P.E.R."
       end
     end
 
