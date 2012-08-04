@@ -25,5 +25,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'turn', '~>0.9.6'
 
   # specify run dependencies here
+  gem.add_dependency 'bundler', "~>1.1"
   gem.add_dependency 'querinator'
 end

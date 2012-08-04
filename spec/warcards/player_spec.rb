@@ -4,7 +4,8 @@ module Cardgame
   describe Player do
     def setup
       @wargame = Wargame.new
-      @player = wargame.player
+      @player = @wargame.player
+      @wargame.deal
     end
 
     it "must be an instance of Player" do
@@ -19,7 +20,7 @@ module Cardgame
 
     describe "#name" do
       it "player must have a name" do
-        player.name.must_equal "Player"
+        @player.name.must_equal "Player"
       end
     end
 

@@ -7,14 +7,14 @@ module Cardgame
     end
 
     it "must be an instance of card" do
-      @card.must_be_instance_of card
+      @card.must_be_instance_of Card
     end
 
     it "must be created with a given suit" do
       Card.new(:suit => :clubs).suit.must_equal :clubs
     end
 
-    it must "be created with a given value" do
+    it "must be created with a given value" do
       Card.new(:value => 3).value.must_equal 3
     end
 

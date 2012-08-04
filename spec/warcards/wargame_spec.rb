@@ -120,7 +120,7 @@ module Cardgame
         @wargame.player.stack = (Card.new(:suit => :clubs, :value => 4))
         @wargame.player.stack << (Card.new(:suit => :hearts, :value => 11))
 
-        @wargame.stack.length.must_equal 2
+        @wargame.ai.stack.length.must_equal 2
 
         2.times do
           @wargame.discard(@wargame.foray.winner)

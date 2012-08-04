@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     warcards (0.0.1)
+      bundler (~> 1.1)
       querinator
 
 GEM

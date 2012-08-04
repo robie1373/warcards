@@ -6,4 +6,4 @@ require 'growl'
 
 MiniTest::Reporters.use!
 
-require_relative '../lib/warcards/wargame'
+require_relative '../lib/warcards'
