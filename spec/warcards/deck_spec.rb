@@ -11,7 +11,7 @@ module Cardgame
     end
 
     it "must have 52 cards in it" do
-      @deck.lenght.must_equal 52
+      @deck.length.must_equal 52
     end
 
     it "must have 13 cards of each suit" do
