@@ -9,6 +9,7 @@ GEM
   specs:
     ansi (1.4.3)
     builder (3.0.0)
+    ffi (1.1.1)
     ffi (1.1.1-x86-mingw32)
     growl (1.0.3)
     guard (1.2.3)
