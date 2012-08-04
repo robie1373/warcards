@@ -47,8 +47,8 @@ module Cardgame
             rearm(:participant => @player)
           else
             raise "Something went wrong during war.
-Someone may be too low on ammunition.
-I'm sorry your war didn't work out."
+ Someone may be too low on ammunition.
+ I'm sorry your war didn't work out."
           end
         end
 

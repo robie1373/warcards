@@ -3,6 +3,8 @@ module Cardgame
     def initialize
       @stack = Array.new
       @discard = Array.new
+      @player_name = "Player"
+
     end
 
     def stack
@@ -23,7 +25,7 @@ module Cardgame
     end
 
     def name
-      "Player"
+      @player_name
     end
   end
 end
