@@ -4,11 +4,11 @@ require_relative 'ai'
 require_relative 'player'
 
 module Cardgame
-  class Wargame
-    def initialize
-      @deck   = Deck.new
-      @player = Player.new
-      @ai     = Ai.new
+  class Gameplay
+    def initialize(args)
+      @deck   = args[:deck]
+      @player = args[:player]
+      @ai     = args[:ai]
     end
 
     def deal
@@ -61,16 +61,17 @@ module Cardgame
         { :winner => winner, :player_cards => @player_cards, :ai_cards => @ai_cards }
       end
 
-      def show_cards
-        @player_cards << @player.stack.pop
-        @ai_cards << @ai.stack.pop
-      end
 
       def war
         show_cards
       end
 
 
+    end
+
+    def self.show_cards
+      @player_cards << @player.stack.pop
+      @ai_cards << @ai.stack.pop
     end
 
     def discard(result)

@@ -3,9 +3,12 @@ require_relative '../spec_helper'
 module Cardgame
   describe Player do
     def setup
-      @wargame = Wargame.new
-      @player = @wargame.player
-      @wargame.deal
+      @deck = Deck.new
+      @player = Player.new
+      @ai = Ai.new
+      @gameplay = Gameplay.new(:deck => @deck, :player => @player, :ai => @ai)
+      @player = @gameplay.player
+      @gameplay.deal
     end
 
     it "must be an instance of Player" do
