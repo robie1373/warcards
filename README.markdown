@@ -1,4 +1,5 @@
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/robie1373/warcards)
+[![Build Status](https://secure.travis-ci.org/robie1373/warcards.png?branch=master)](http://travis-ci.org/robie1373/warcards)
 
 # Warcards!
 ## What is it?
