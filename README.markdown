@@ -1,3 +1,4 @@
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/robie1373/warcards)
 # Warcards!
 ## What is it?
 Use a deck of flash cards to play the card game war!
