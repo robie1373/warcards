@@ -21,6 +21,7 @@ module Cardgame
     end
 
     def flip_cards
+      # TODO
       #@gameplay.
     end
 
