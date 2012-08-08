@@ -15,11 +15,11 @@ module Cardgame
       @ai.must_be_instance_of Ai
     end
 
-    describe "#stack" do
-      it "must have a stack of Card objects" do
-        @ai.stack.first.must_be_instance_of Card
-      end
-    end
+    #describe "#stack" do
+    #  it "must have a stack of Card objects" do
+    #    @ai.stack.first.must_be_instance_of Card
+    #  end
+    #end
 
     describe "#name" do
       it "must have a name" do
