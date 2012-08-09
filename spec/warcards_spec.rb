@@ -35,8 +35,8 @@ module Cardgame
     describe "#flip_cards" do
       def setup
         @game              = Game.new
-        @game.player.stack = Card.new(:suit => :hearts, :value => 13)
-        @game.ai.stack     = Card.new(:suit => :diamonds, :value => 4)
+        @game.player.stack.clear << Card.new(:suit => :hearts, :value => 13)
+        @game.ai.stack.clear << Card.new(:suit => :diamonds, :value => 4)
       end
 
       it "returns 2 cards, 1 from each player" do

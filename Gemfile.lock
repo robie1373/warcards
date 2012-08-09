@@ -32,7 +32,7 @@ GEM
       powerbar
     minitest-spec (0.0.2.1)
       minitest (>= 3.0)
-    powerbar (1.0.7)
+    powerbar (1.0.8)
       ansi (~> 1.4.0)
       hashie (>= 1.1.0)
     querinator (0.0.1)

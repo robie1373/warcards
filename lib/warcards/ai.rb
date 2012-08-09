@@ -12,19 +12,19 @@ module Cardgame
     def stack
       @stack
     end
-
-    def stack=(card)
-      @stack = Array.new
-      @stack << card
-    end
+    #
+    #def stack=(card)
+    #  @stack = Array.new
+    #  @stack << card
+    #end
 
     def discard
       @discard
     end
 
-    def empty_discard
-      @discard = Array.new
-    end
+    #def empty_discard
+    #  @discard = Array.new
+    #end
 
     def name
       @ai_name

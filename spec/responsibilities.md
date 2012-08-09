@@ -3,15 +3,13 @@
 ## Ai - Describes the Ai participant
 * #name - good
 * #difficulty_check - Ai specific. good.
-* #stack(=) - hold a participants cards. _This should be a class_
-* #discard(=) - hold a participants winnings. _This should be a class_
-  * #empty_discard
+* #stack - wrapper for instance variable holding an array
+* #discard - wrapper for instance variable holding an array
 
 ## Player - Describes the player participant
 * #name - good
-* #stack(=) - hold a participants cards. _This should be a class_
-* #discard(=) - hold a participants winnings. _This should be a class_
-  * #empty_discard
+* #stack - wrapper for instance variable holding an array
+* #discard - wrapper for instance variable holding an array
 * _Should this just be a Struct? There is no behavior._
 
 ## Deck - Allows manipulation of all 52 cards.
