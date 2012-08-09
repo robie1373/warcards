@@ -21,7 +21,7 @@ module Cardgame
     end
 
     def rearm(args)
-      p args[:participant]
+      #puts "\n#rearm participant is: #{p args[:participant]}"
       args[:participant].discard.each do |card|
         args[:participant].stack << card
       end
@@ -31,20 +31,20 @@ module Cardgame
 
     def winner
       #begin
-        while @ai_cards.last.value == @player_cards.last.value
-          war
-        end
-     # rescue
-     #   if @ai.stack.length < 1
-     #     rearm(:participant => @ai)
-     #   elsif @player.stack.length < 1
-     #     rearm(:participant => @player)
-     #   else
-     #     raise "Something went wrong during war.
-     #Someone may be too low on ammunition.
-     #I'm sorry your war didn't work out."
-     #   end
-     # end
+      while @ai_cards.last.value == @player_cards.last.value
+        war
+      end
+      # rescue
+      #   if @ai.stack.length < 1
+      #     rearm(:participant => @ai)
+      #   elsif @player.stack.length < 1
+      #     rearm(:participant => @player)
+      #   else
+      #     raise "Something went wrong during war.
+      #Someone may be too low on ammunition.
+      #I'm sorry your war didn't work out."
+      #   end
+      # end
 
       if @ai_cards.last.value > @player_cards.last.value
         winner = @ai
@@ -69,12 +69,14 @@ module Cardgame
     end
 
     def discard(result)
-      puts "result is: #{result}"
-      result[:winner].discard << result[:ai_cards]
-      result[:winner].discard << result[:player_cards]
-      puts "winner discard is: #{result[:winner].discard}"
-      @player_cards.clear
-      @ai_cards.clear
+      #puts "result is: #{result}"
+      while result[:ai_cards].size > 0
+        result[:winner].discard << result[:ai_cards].pop
+        result[:winner].discard << result[:player_cards].pop
+      end
+      #puts "winner discard is: #{result[:winner].discard}"
+      #@player_cards.clear
+      #@ai_cards.clear
     end
 
     #def foray
