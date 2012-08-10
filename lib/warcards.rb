@@ -30,10 +30,27 @@ module Cardgame
       end
     end
 
+    def continue?
+      puts "go again?\n"
+      next_round = gets
+      if next_round.downcase.chomp.include? "n"
+        puts "You ended the game"
+        exit
+      end
+    end
+
     def output_cli(result)
       puts "#{result[:winner].name} won"
-      puts "Player has #{@gameplay.player.stack.length + @gameplay.player.discard.length + 1} cards.\tAI has #{@gameplay.ai.stack.length + @gameplay.ai.discard.length + 1} cards."
+      puts "Player has #{player_holdings} cards.\tAI has #{ai_holdings} cards."
       challenge_participants(result)
+    end
+
+    def player_holdings
+      (@gameplay.player.stack.length + @gameplay.player.discard.length + 1)
+    end
+
+    def ai_holdings
+      @gameplay.ai.stack.length + @gameplay.ai.discard.length + 1
     end
 
     def challenge_participants(result)
@@ -62,14 +79,6 @@ module Cardgame
       end
     end
 
-    def continue?
-      puts "go again?\n"
-      next_round = gets
-      if next_round.downcase.chomp.include? "n"
-        puts "You ended the game"
-        exit
-      end
-    end
 
     def test_player
       question = @questions.sample
