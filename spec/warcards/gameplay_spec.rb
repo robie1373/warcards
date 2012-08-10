@@ -115,6 +115,7 @@ module Cardgame
         @gameplay.player.stack << card_player_3
 
         @gameplay.show_cards
+        @gameplay.war?
         result = @gameplay.winner
 
         result[:ai_cards].must_be_instance_of Array

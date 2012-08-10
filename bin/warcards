@@ -5,6 +5,6 @@ require 'warcards'
 
 
 
-
-Cardgame::Warcards.new.rungame
+# TODO finish refactoring lib/warcards and implement here
+Cardgame::Game.new
 

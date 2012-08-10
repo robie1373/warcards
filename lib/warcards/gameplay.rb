@@ -21,7 +21,6 @@ module Cardgame
     end
 
     def rearm(args)
-      #puts "\n#rearm participant is: #{p args[:participant]}"
       args[:participant].discard.each do |card|
         args[:participant].stack << card
       end
@@ -30,22 +29,6 @@ module Cardgame
     end
 
     def winner
-      #begin
-      while @ai_cards.last.value == @player_cards.last.value
-        war
-      end
-      # rescue
-      #   if @ai.stack.length < 1
-      #     rearm(:participant => @ai)
-      #   elsif @player.stack.length < 1
-      #     rearm(:participant => @player)
-      #   else
-      #     raise "Something went wrong during war.
-      #Someone may be too low on ammunition.
-      #I'm sorry your war didn't work out."
-      #   end
-      # end
-
       if @ai_cards.last.value > @player_cards.last.value
         winner = @ai
       elsif @ai_cards.last.value < @player_cards.last.value
@@ -55,36 +38,45 @@ module Cardgame
       { :winner => winner, :player_cards => @player_cards, :ai_cards => @ai_cards }
     end
 
-    def war
-      show_cards
+    def war?
+      while @ai_cards.last.value == @player_cards.last.value
+        show_cards
+      end
     end
 
+    #TODO I was using this to track down a problem in the function of gameplay but I forget what or where. When it crops up again, you'll know what to do
+    #begin
+    # rescue
+    #   if @ai.stack.length < 1
+    #     rearm(:participant => @ai)
+    #   elsif @player.stack.length < 1
+    #     rearm(:participant => @player)
+    #   else
+    #     raise "Something went wrong during war.
+    #Someone may be too low on ammunition.
+    #I'm sorry your war didn't work out."
+    #   end
+    # end
 
     #TODO make sure to do this someplace -> show_cards
-
-
     def show_cards
       @player_cards << @player.stack.pop
       @ai_cards << @ai.stack.pop
     end
 
     def discard(result)
-      #puts "result is: #{result}"
       while result[:ai_cards].size > 0
         result[:winner].discard << result[:ai_cards].pop
         result[:winner].discard << result[:player_cards].pop
       end
-      #puts "winner discard is: #{result[:winner].discard}"
-      #@player_cards.clear
-      #@ai_cards.clear
     end
-
-    #def foray
-    #  Foray.new(:player => @player, :ai => @ai)
-    #end
 
     def ai
       @ai
+    end
+
+    def ai_cards
+      @ai_cards
     end
 
     def deck
@@ -93,6 +85,10 @@ module Cardgame
 
     def player
       @player
+    end
+
+    def player_cards
+      @player_cards
     end
 
   end
