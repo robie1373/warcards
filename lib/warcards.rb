@@ -65,25 +65,5 @@ module Cardgame
       @ai.difficulty_check?(rand, 0.9)
     end
 
-    def start
-      # TODO
-    end
-
-    #def deal_cards
-    #  @gameplay.deal
-    #end
-    #
-    #def flip_cards
-    #  TODO
-    #  @gameplay.
-    #end
-    #
-    #def player
-    #  @player
-    #end
-    #
-    #def ai
-    #  @ai
-    #end
   end
 end
