@@ -144,8 +144,8 @@ module Cardgame
         @gameplay.ai.discard.length.must_equal 2
         @gameplay.player.discard.length.must_equal 2
 
-        @gameplay.rearm(:participant => @gameplay.ai)
-        @gameplay.rearm(:participant => @gameplay.player)
+        @gameplay.rearm?(:participant => @gameplay.ai)
+        @gameplay.rearm?(:participant => @gameplay.player)
 
         @gameplay.ai.stack.length.must_equal 2, "ai stack has some cards now"
         @gameplay.player.stack.length.must_equal 2, "player stack has some cards now"

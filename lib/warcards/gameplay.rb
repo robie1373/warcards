@@ -20,12 +20,14 @@ module Cardgame
       end
     end
 
-    def rearm(args)
-      args[:participant].discard.each do |card|
-        args[:participant].stack << card
+    def rearm?(args)
+      if args[:participant].stack.length < 1
+        args[:participant].discard.each do |card|
+          args[:participant].stack << card
+        end
+        args[:participant].stack.flatten!
+        args[:participant].discard.clear
       end
-      args[:participant].stack.flatten!
-      args[:participant].discard.clear
     end
 
     def winner

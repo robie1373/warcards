@@ -28,8 +28,7 @@
 * #deal - shuffles the deck _and_ distributes them between participants.
     * _Is this Deck behavior?_ `@deck.shuffle.deal(@player, @ai)` _No. Some decks might not get shuffled or dealt.
     Those are implementation details of various types of gameplay. This belongs in gameplay._
-* #rearm - Moves discard to stack when stack is empty. good.
-* #rearm? - mobe check from #winner here.
+* #rearm? - rearms participant if required
 * #winner - determines the winning package by comparing card.value
 * #war - effectively an alias for #show_cards _This is probably redundant unless the test for war is moved into this
     function providing something like_ `while war?`
