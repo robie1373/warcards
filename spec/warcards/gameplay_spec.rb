@@ -59,19 +59,19 @@ module Cardgame
     end
 
     # TODO refactor this test to use specified cards to ensure each case gets tested
-    describe "#winner" do
+    describe "#contest" do
       it "must pick the ai when it has the highest card" do
         @gameplay.ai.stack.clear << (Card.new(:suit => :clubs, :value => 12))
         @gameplay.player.stack.clear << (Card.new(:suit => :hearts, :value => 3))
         @gameplay.show_cards
-        @gameplay.winner[:winner].must_equal @gameplay.ai
+        @gameplay.contest[:winner].must_equal @gameplay.ai
       end
 
       it "must pick the player when they have the highest card" do
         @gameplay.ai.stack.clear << (Card.new(:suit => :clubs, :value => 1))
         @gameplay.player.stack.clear << (Card.new(:suit => :hearts, :value => 6))
         @gameplay.show_cards
-        @gameplay.winner[:winner].must_equal @gameplay.player
+        @gameplay.contest[:winner].must_equal @gameplay.player
       end
     end
 
@@ -80,7 +80,7 @@ module Cardgame
         @gameplay.ai.stack.clear << (Card.new(:suit => :clubs, :value => 12))
         @gameplay.player.stack.clear << (Card.new(:suit => :hearts, :value => 3))
         @gameplay.show_cards
-        result = @gameplay.winner
+        result = @gameplay.contest
         unless result[:winner] == :war
           # TODO get rid of all :war references
           @gameplay.discard(result)
@@ -92,7 +92,7 @@ module Cardgame
         @gameplay.ai.stack.clear << (Card.new(:suit => :clubs, :value => 4))
         @gameplay.player.stack.clear << (Card.new(:suit => :hearts, :value => 9))
         @gameplay.show_cards
-        result = @gameplay.winner
+        result = @gameplay.contest
         if result[:winner] != :war
           @gameplay.discard(result)
         end
@@ -117,7 +117,7 @@ module Cardgame
 
         @gameplay.show_cards
         @gameplay.war?
-        result = @gameplay.winner
+        result = @gameplay.contest
 
         result[:ai_cards].must_be_instance_of Array
         result[:ai_cards].last.must_be_instance_of Card
@@ -137,7 +137,7 @@ module Cardgame
 
         2.times do
           @gameplay.show_cards
-          @gameplay.discard(@gameplay.winner)
+          @gameplay.discard(@gameplay.contest)
         end
 
         @gameplay.ai.stack.length.must_equal 0
@@ -174,7 +174,7 @@ module Cardgame
         skip "you'll need to mock stdout and stderr first. Of course you'll have to learn how before doing that."
         2.times do
           @gameplay.show_cards
-          @gameplay.discard(@gameplay.winner)
+          @gameplay.discard(@gameplay.contest)
         end
         lambda do
           @gameplay.game_over?

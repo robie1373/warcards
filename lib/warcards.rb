@@ -21,26 +21,32 @@ module Cardgame
         @gameplay.rearm?
         @gameplay.show_cards
         @gameplay.war?
-        result = @gameplay.winner
-        puts "#{result[:winner].name} won"
-        puts "Player has #{@gameplay.player.stack.length + @gameplay.player.discard.length} cards.\tAI has #{@gameplay.ai.stack.length + @gameplay.ai.discard.length} cards."
-        if result[:winner] == @gameplay.player
-          if test_player
-            puts "Correct! Yay!"
-          else
-            puts "Oooh. I'm sorry. The correct answer was 'TODO'. #{@gameplay.ai.name} became the winner."
-            result[:winner] = @gameplay.ai
-          end
-        else
-          if test_ai
-            puts "Ai was correct."
-          else
-            puts "Ai was wrong. #{@gameplay.player.name} became the winner!"
-            result[:winner] = @gameplay.player
-          end
-        end
+        result = @gameplay.contest
+
+        output_cli(result)
+
         continue?
         @gameplay.discard(result)
+      end
+    end
+
+    def output_cli(result)
+      puts "#{result[:winner].name} won"
+      puts "Player has #{@gameplay.player.stack.length + @gameplay.player.discard.length + 1} cards.\tAI has #{@gameplay.ai.stack.length + @gameplay.ai.discard.length + 1} cards."
+      if result[:winner] == @gameplay.player
+        if test_player
+          puts "Correct! Yay!"
+        else
+          puts "Oooh. I'm sorry. The correct answer was 'TODO'. #{@gameplay.ai.name} became the winner."
+          result[:winner] = @gameplay.ai
+        end
+      else
+        if test_ai
+          puts "Ai was correct."
+        else
+          puts "Ai was wrong. #{@gameplay.player.name} became the winner!"
+          result[:winner] = @gameplay.player
+        end
       end
     end
 

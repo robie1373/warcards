@@ -48,7 +48,7 @@ module Cardgame
       end
     end
 
-    def winner
+    def contest
       if @ai_cards.last.value > @player_cards.last.value
         winner = @ai
       elsif @ai_cards.last.value < @player_cards.last.value
