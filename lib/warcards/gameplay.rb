@@ -13,8 +13,11 @@ module Cardgame
       @ai_cards     = Array.new
     end
 
-    def deal
+    def shuffle
       @deck.shuffle!
+    end
+
+    def deal
       while @deck.length > 0
         deck.length.even? ? @player.stack << @deck.pop : @ai.stack << @deck.pop
       end
