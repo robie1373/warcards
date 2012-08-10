@@ -39,6 +39,7 @@ module Cardgame
       player    = Player.new
       ai        = Ai.new
       @gameplay = Gameplay.new(:deck => @deck, :player => player, :ai => ai)
+      @gameplay.shuffle
       @gameplay.deal
     end
 
@@ -144,8 +145,7 @@ module Cardgame
         @gameplay.ai.discard.length.must_equal 2
         @gameplay.player.discard.length.must_equal 2
 
-        @gameplay.rearm?(:participant => @gameplay.ai)
-        @gameplay.rearm?(:participant => @gameplay.player)
+        @gameplay.rearm?
 
         @gameplay.ai.stack.length.must_equal 2, "ai stack has some cards now"
         @gameplay.player.stack.length.must_equal 2, "player stack has some cards now"
@@ -158,5 +158,28 @@ module Cardgame
       end
     end
 
+    describe "#game_over?" do
+      def setup
+        @deck     = Deck.new
+        player    = Player.new
+        ai        = Ai.new
+        @gameplay = Gameplay.new(:deck => @deck, :player => player, :ai => ai)
+        @gameplay.ai.stack.clear << (Card.new(:suit => :clubs, :value => 2))
+        @gameplay.ai.stack << (Card.new(:suit => :hearts, :value => 1))
+        @gameplay.player.stack.clear << (Card.new(:suit => :clubs, :value => 12))
+        @gameplay.player.stack << (Card.new(:suit => :hearts, :value => 11))
+      end
+
+      it "must end the game when a participant is out of cards" do
+        skip "you'll need to mock stdout and stderr first. Of course you'll have to learn how before doing that."
+        2.times do
+          @gameplay.show_cards
+          @gameplay.discard(@gameplay.winner)
+        end
+        lambda do
+          @gameplay.game_over?
+        end.must_output(STDOUT, STDERR) {"Game Over"; exit}
+      end
+    end
   end
 end

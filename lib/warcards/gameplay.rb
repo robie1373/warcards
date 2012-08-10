@@ -23,13 +23,26 @@ module Cardgame
       end
     end
 
-    def rearm?(args)
-      if args[:participant].stack.length < 1
-        args[:participant].discard.each do |card|
-          args[:participant].stack << card
+    def game_over?
+      [@ai, @player].each do |participant|
+        if (participant.stack.length + participant.discard.length) < 1
+          puts "Game over"
+          exit
+        else
+          next
         end
-        args[:participant].stack.flatten!
-        args[:participant].discard.clear
+      end
+    end
+
+    def rearm?
+      [@ai, @player].each do |participant|
+        if participant.stack.length < 1
+          participant.discard.each do |card|
+            participant.stack << card
+          end
+          participant.stack.flatten!
+          participant.discard.clear
+        end
       end
     end
 
@@ -45,28 +58,16 @@ module Cardgame
 
     def war?
       while @ai_cards.last.value == @player_cards.last.value
+        rearm?
+        #TODO make the folling line a flag or something so the view code can decide to show it or not.
+        puts "WAR!!!"
         show_cards
       end
     end
 
-    #TODO I was using this to track down a problem in the function of gameplay but I forget what or where. When it crops up again, you'll know what to do
-    #begin
-    # rescue
-    #   if @ai.stack.length < 1
-    #     rearm(:participant => @ai)
-    #   elsif @player.stack.length < 1
-    #     rearm(:participant => @player)
-    #   else
-    #     raise "Something went wrong during war.
-    #Someone may be too low on ammunition.
-    #I'm sorry your war didn't work out."
-    #   end
-    # end
-
-    #TODO make sure to do this someplace -> show_cards
     def show_cards
-      @player_cards << @player.stack.pop
-      @ai_cards << @ai.stack.pop
+      player_cards << @player.stack.pop
+      ai_cards << @ai.stack.pop
     end
 
     def discard(result)
