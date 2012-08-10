@@ -33,20 +33,32 @@ module Cardgame
     def output_cli(result)
       puts "#{result[:winner].name} won"
       puts "Player has #{@gameplay.player.stack.length + @gameplay.player.discard.length + 1} cards.\tAI has #{@gameplay.ai.stack.length + @gameplay.ai.discard.length + 1} cards."
+      challenge_participants(result)
+    end
+
+    def challenge_participants(result)
       if result[:winner] == @gameplay.player
-        if test_player
-          puts "Correct! Yay!"
-        else
-          puts "Oooh. I'm sorry. The correct answer was 'TODO'. #{@gameplay.ai.name} became the winner."
-          result[:winner] = @gameplay.ai
-        end
+        challenge_player(result)
       else
-        if test_ai
-          puts "Ai was correct."
-        else
-          puts "Ai was wrong. #{@gameplay.player.name} became the winner!"
-          result[:winner] = @gameplay.player
-        end
+        challenge_ai(result)
+      end
+    end
+
+    def challenge_ai(result)
+      if test_ai
+        puts "Ai was correct."
+      else
+        puts "Ai was wrong. #{@gameplay.player.name} became the winner!"
+        result[:winner] = @gameplay.player
+      end
+    end
+
+    def challenge_player(result)
+      if test_player
+        puts "Correct! Yay!"
+      else
+        puts "Oooh. I'm sorry. The correct answer was 'TODO'. #{@gameplay.ai.name} became the winner."
+        result[:winner] = @gameplay.ai
       end
     end
 
