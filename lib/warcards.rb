@@ -1,12 +1,10 @@
-require 'bundler/setup'
-Bundler.require(:default)
 require_relative 'warcards/gameplay'
 require 'querinator'
 
 module Cardgame
   class Game
     def initialize
-      @questions = Querinator::Game.new.get_questions
+
       @deck      = Deck.new
       @player    = Player.new
       @ai        = Ai.new
@@ -16,6 +14,11 @@ module Cardgame
     end
 
     def run
+      filename = get_filename
+      until File.file? filename
+        get_filename
+      end
+      @questions = Querinator::Game.new.get_questions(filename)
       loop do
         @gameplay.game_over?
         @gameplay.rearm?
@@ -28,6 +31,14 @@ module Cardgame
         continue?
         @gameplay.discard(result)
       end
+    end
+
+    def get_filename
+      puts "What question file?\nfilename: "
+      filename = gets.chomp
+      file = File.expand_path(filename)
+      p file
+      file
     end
 
     def continue?

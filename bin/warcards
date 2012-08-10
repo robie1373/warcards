@@ -1,10 +1,14 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift File.expand_path('../../', __FILE__)
+
+#require 'bundler'
+require 'bundler/setup'
+#Bundler.require(:default)
 
 require 'warcards'
 
 
 
-# TODO finish refactoring lib/warcards and implement here
 Cardgame::Game.new.run
 
