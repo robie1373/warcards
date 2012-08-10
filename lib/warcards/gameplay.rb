@@ -24,9 +24,11 @@ module Cardgame
     end
 
     def game_over?
-      [@ai, @player].each do |participant|
+      [@ai, @player].each_with_index do |participant, index|
         if (participant.stack.length + participant.discard.length) < 1
-          puts "Game over"
+          participants = [@ai, @player]
+          participants.delete_at index
+          puts "Game over #{participants.first.name} won!"
           exit
         else
           next
