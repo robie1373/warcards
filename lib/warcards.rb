@@ -4,14 +4,51 @@ require 'querinator'
 module Cardgame
   class Game
     def initialize
-
-      @deck      = Deck.new
-      @player    = Player.new
-      @ai        = Ai.new
-      @gameplay  = Gameplay.new(:deck => @deck, :player => @player, :ai => @ai)
+      @deck     = Deck.new
+      @player   = Player.new
+      @ai       = Ai.new
+      @gameplay = Gameplay.new(:deck => @deck, :player => @player, :ai => @ai)
       @gameplay.shuffle
       @gameplay.deal
+      @output = Struct.new(:winner, :player_feedback, :ai_feedback, :posed)
+
     end
+
+    ##def output
+    ##  @output
+    ##end
+    ##
+    ##def rearm?
+    ##  @gameplay.rearm?
+    ##end
+    ##
+    ##def show_cards
+    ##  @gameplay.show_cards
+    ##end
+    ##
+    ##def war?
+    ##  @gameplay.contest
+    ##end
+    ##
+    ##def contest
+    ##  @gameplay.contest
+    ##end
+    ##
+    ##def discard(result)
+    ##  @gameplay.discard(result)
+    ##end
+    ##
+    ##def game_over?
+    ##  @gameplay.game_over?
+    ##end
+    #
+    #def player
+    #  @player
+    #end
+    #
+    #def ai
+    #  @ai
+    #end
 
     def run
       filename = get_filename
@@ -36,7 +73,7 @@ module Cardgame
     def get_filename
       puts "What question file?\nfilename: "
       filename = gets.chomp
-      file = File.expand_path(filename)
+      file     = File.expand_path(filename)
       p file
       file
     end
@@ -98,9 +135,9 @@ module Cardgame
       question.is_correct?(answer.chomp)
     end
 
-    #TODO make this configurable
-    def test_ai
-      @ai.difficulty_check?(rand, 0.9)
+    def test_ai(difficulty)
+      difficulty ||= 0.4
+      @ai.difficulty_check?(rand, difficulty)
     end
 
   end
