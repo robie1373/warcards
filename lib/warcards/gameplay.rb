@@ -2,6 +2,7 @@ require_relative 'deck'
 require_relative 'card'
 require_relative 'ai'
 require_relative 'player'
+require 'ostruct'
 
 module Cardgame
   class Gameplay
@@ -24,16 +25,18 @@ module Cardgame
     end
 
     def game_over?
-      [@ai, @player].each_with_index do |participant, index|
+      end_game = Hash.new
+      participants = [@player, @ai]
+      participants.each_with_index do |participant, index|
         if (participant.stack.length + participant.discard.length) < 1
-          participants = [@ai, @player]
           participants.delete_at index
-          puts "Game over #{participants.first.name} won!"
-          exit
+          end_game[:winner] = participants.first.name
+          end_game[:over?] = TRUE
         else
-          next
+          end_game[:over?] = FALSE
         end
       end
+      end_game
     end
 
     def rearm?
@@ -61,7 +64,7 @@ module Cardgame
     def war?
       while @ai_cards.last.value == @player_cards.last.value
         rearm?
-        #TODO make the folling line a flag or something so the view code can decide to show it or not.
+        #TODO make the following line a flag or something so the view code can decide to show it or not.
         puts "WAR!!!"
         show_cards
       end

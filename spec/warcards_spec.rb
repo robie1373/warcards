@@ -24,10 +24,68 @@ module Cardgame
         end
       end
       game = Game.new
-      50.times do
+      5.times do
         game.excercise
         game.sum_cards.must_equal 52
       end
     end
+
+
+    describe "#player_holdings" do
+      def setup
+        @game = Game.new
+      end
+
+      it "shows how many cards the player has between stack and discard" do
+        @game.player_holdings.must_equal 27
+      end
+    end
+
+    describe "#ai_holdings" do
+      def setup
+        @game = Game.new
+      end
+
+      it "shows how many cards the AI has between the stack and discard" do
+        @game.ai_holdings.must_equal 27
+      end
+    end
+
+    describe "#continue?" do
+      def setup
+        @game = Game.new
+      end
+
+      it "asks if I want to continue" do
+        input = StringIO.new("\n")
+        output = StringIO.new("")
+        @game.continue?(input, output)
+        output.string.must_equal "go again?\n"
+      end
+
+      it "tells me I ended the game if I say 'n'" do
+        input = StringIO.new("n")
+        output = StringIO.new("")
+        @game.continue?(input, output, :no)
+        output.string.must_match /.*You ended the game.*/
+      end
+    end
+
+    describe "#output_cli" do
+      def setup
+        @game = Game.new
+      end
+
+      it "displays the comparison winner" do
+        input = StringIO.new("n")
+        output = StringIO.new("")
+        skip "setup #gameplay in Game to allow manipulation of game state."
+      end
+
+      it "displays the number of cards each participant has" do
+        skip "TODO"
+      end
+    end
+
   end
 end

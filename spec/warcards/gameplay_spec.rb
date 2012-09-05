@@ -3,9 +3,9 @@ require_relative '../spec_helper'
 module Cardgame
   describe Gameplay do
     def setup
-      @deck     = Deck.new
-      @player   = Player.new
-      @ai       = Ai.new
+      @deck = Deck.new
+      @player = Player.new
+      @ai = Ai.new
       @gameplay = Gameplay.new(:deck => @deck, :player => @player, :ai => @ai)
     end
 
@@ -35,9 +35,9 @@ module Cardgame
 
   describe "dealt deck" do
     def setup
-      @deck     = Deck.new
-      player    = Player.new
-      ai        = Ai.new
+      @deck = Deck.new
+      player = Player.new
+      ai = Ai.new
       @gameplay = Gameplay.new(:deck => @deck, :player => player, :ai => ai)
       @gameplay.shuffle
       @gameplay.deal
@@ -102,9 +102,9 @@ module Cardgame
 
     describe "#war" do
       it "must play war when there is a draw" do
-        card_ai_1     = (Card.new(:suit => :clubs, :value => 5))
-        card_ai_2     = (Card.new(:suit => :spades, :value => 4))
-        card_ai_3     = (Card.new(:suit => :clubs, :value => 4))
+        card_ai_1 = (Card.new(:suit => :clubs, :value => 5))
+        card_ai_2 = (Card.new(:suit => :spades, :value => 4))
+        card_ai_3 = (Card.new(:suit => :clubs, :value => 4))
         card_player_1 = (Card.new(:suit => :hearts, :value => 4))
         card_player_2 = (Card.new(:suit => :diamonds, :value => 4))
         card_player_3 = (Card.new(:suit => :hearts, :value => 4))
@@ -160,9 +160,9 @@ module Cardgame
 
     describe "#game_over?" do
       def setup
-        @deck     = Deck.new
-        player    = Player.new
-        ai        = Ai.new
+        @deck = Deck.new
+        player = Player.new
+        ai = Ai.new
         @gameplay = Gameplay.new(:deck => @deck, :player => player, :ai => ai)
         @gameplay.ai.stack.clear << (Card.new(:suit => :clubs, :value => 2))
         @gameplay.ai.stack << (Card.new(:suit => :hearts, :value => 1))
@@ -171,15 +171,15 @@ module Cardgame
       end
 
       it "must end the game when a participant is out of cards" do
-        skip "you'll need to mock stdout and stderr first. Of course you'll have to learn how before doing that."
         2.times do
+          @gameplay.game_over?
           @gameplay.show_cards
           @gameplay.discard(@gameplay.contest)
         end
-        lambda do
-          @gameplay.game_over?
-        end.must_output(STDOUT, STDERR) {"Game Over"; exit}
+        @gameplay.game_over?
+        @gameplay.game_over?[:over?].must_equal true
       end
     end
+
   end
 end
