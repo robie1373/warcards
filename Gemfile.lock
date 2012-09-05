@@ -63,6 +63,6 @@ DEPENDENCIES
   minitest-reporters (~> 0.9.0)
   minitest-spec (~> 0.0.2)
   rb-fsevent (~> 0.9.1)
-  simplecov
+  simplecov (~> 0.6)
   turn (~> 0.9.6)
   warcards!

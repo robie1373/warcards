@@ -5,8 +5,6 @@ module Cardgame
       @discard = Array.new
       #attr_accessor :name
       @ai_name = "H.E.L.P.E.R."
-       # Set the game difficulty manually for now. Pick a number < 1. Higher is harder. TODO: make this a switch
-
     end
 
     def stack

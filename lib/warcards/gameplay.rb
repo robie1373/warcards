@@ -25,13 +25,13 @@ module Cardgame
     end
 
     def game_over?
-      end_game = Hash.new
+      end_game     = Hash.new
       participants = [@player, @ai]
       participants.each_with_index do |participant, index|
         if (participant.stack.length + participant.discard.length) < 1
           participants.delete_at index
           end_game[:winner] = participants.first.name
-          end_game[:over?] = TRUE
+          end_game[:over?]  = TRUE
         else
           end_game[:over?] = FALSE
         end

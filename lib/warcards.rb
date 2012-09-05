@@ -7,8 +7,7 @@ module Cardgame
       @deck = Deck.new
       @player = Player.new
       @ai = Ai.new
-      #@gameplay = gameplay TODO hook this up to method below for testing.
-      @gameplay = Gameplay.new(:deck => @deck, :player => @player, :ai => @ai)
+      @gameplay = gameplay(:deck => @deck, :player => @player, :ai => @ai)
       @gameplay.shuffle
       @gameplay.deal
       @output = Struct.new(:winner, :player_feedback, :ai_feedback, :posed)
@@ -16,9 +15,12 @@ module Cardgame
     end
 
     # TODO finish this up to make #output_cli tests easier
-    #def gameplay(args)
-    #  Gameplay.new(:deck => @deck, :player => @player, :ai => @ai)
-    #end
+    def gameplay(args)
+      deck = args[:deck]
+      player = args[:player]
+      ai = args[:ai]
+      Gameplay.new(:deck => deck, :player => player, :ai => ai)
+    end
 
 
 
@@ -105,7 +107,7 @@ module Cardgame
       end
     end
 
-    def output_cli(result, input = STDIN, output = STDOUT)
+    def output_cli(result, output = STDOUT)
       output.puts "#{result[:winner].name} won"
       output.puts "Player has #{player_holdings} cards.\tAI has #{ai_holdings} cards."
       challenge_participants(result)
@@ -131,7 +133,7 @@ module Cardgame
       end
     end
 
-    def challenge_ai(result, input = STDIN, output = STDOUT)
+    def challenge_ai(result, output = STDOUT)
       if test_ai
         output.puts "Ai was correct."
       else
@@ -140,9 +142,9 @@ module Cardgame
       end
     end
 
-    def challenge_player(result, input = STDIN, output = STDOUT)
-      question = @questions.sample
-      if test_player(question)
+    def challenge_player(result, question = @questions.sample, input = STDIN, output = STDOUT)
+      #question = @questions.sample
+      if test_player(question, input, output)
         output.puts "Correct! Yay!"
       else
         output.puts %Q{Oooh. I'm sorry. The correct answer was "#{question.answer}". #{@gameplay.ai.name} became the winner.}
@@ -150,16 +152,14 @@ module Cardgame
       end
     end
 
-
     def test_player(question, input = STDIN, output = STDOUT)
       output.puts question.pose
       answer = input.gets
       question.is_correct?(answer.chomp)
     end
 
-    def test_ai(difficulty = 0.4)
-      difficulty ||= 0.4
-      @ai.difficulty_check?(rand, difficulty)
+    def test_ai(rand_src = rand, difficulty = 0.4)
+      @ai.difficulty_check?(rand_src, difficulty)
     end
 
   end
