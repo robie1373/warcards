@@ -1,4 +1,5 @@
-module Cardgame
+#module Cardgame
+=begin
   def challenge_participants(result)
       if result[:winner] == @gameplay.player
         challenge_player(result)
@@ -39,3 +40,4 @@ module Cardgame
     end
 
 end
+=end

@@ -133,8 +133,8 @@ module Cardgame
       end
     end
 
-    def challenge_ai(result, output = STDOUT)
-      if test_ai
+    def challenge_ai(result, output = STDOUT, rnd_src = rand)
+      if test_ai(rnd_src)
         output.puts "Ai was correct."
       else
         output.puts "Ai was wrong. #{@gameplay.player.name} became the winner!"

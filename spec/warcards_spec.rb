@@ -165,8 +165,8 @@ module Cardgame
       end
 
       it "tells me the ai won" do
-        @game.challenge_ai(@result, @output)
-        @output.string.must_equal "foo"
+        @game.challenge_ai(@result, @output, 0.9)
+        @output.string.must_equal "Ai was wrong. Player became the winner!\n"
       end
     end
   end
