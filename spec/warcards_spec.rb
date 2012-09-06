@@ -156,8 +156,8 @@ module Cardgame
 
     describe "#challenge_ai" do
       def setup
-        @game      = Game.new
-        @gameplay  = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
+        @game     = Game.new
+        @gameplay = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
         @gameplay.ai_cards.clear << (Card.new(:suit => :clubs, :value => 12))
         @gameplay.player_cards.clear << (Card.new(:suit => :clubs, :value => 3))
         @result = @gameplay.contest
@@ -167,6 +167,24 @@ module Cardgame
       it "tells me the ai won" do
         @game.challenge_ai(@result, @output, 0.9)
         @output.string.must_equal "Ai was wrong. Player became the winner!\n"
+      end
+    end
+
+    describe "#challenge_participants" do
+      def setup
+        @game      = Game.new
+        @questions = Querinator::Game.new.get_questions("spec/test_question_file.txt")
+        @gameplay  = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
+        @gameplay.ai_cards.clear << (Card.new(:suit => :clubs, :value => 2))
+        @gameplay.player_cards.clear << (Card.new(:suit => :clubs, :value => 13))
+        @result = @gameplay.contest
+        @output = StringIO.new("")
+        @input = StringIO.new("foo\n")
+      end
+
+      it "calls #challenge_player if player has high card" do
+        @game.challenge_participants(@result, @questions.first, @input, @output, 0.1)
+        @output.string.must_match /abc/
       end
     end
   end

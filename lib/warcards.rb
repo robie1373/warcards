@@ -111,6 +111,7 @@ module Cardgame
       output.puts "#{result[:winner].name} won"
       output.puts "Player has #{player_holdings} cards.\tAI has #{ai_holdings} cards."
       challenge_participants(result)
+      # TODO get challenge_participants out of here. No longer belongs. Causing hard tests.
     end
 
     def player_holdings
@@ -125,11 +126,11 @@ module Cardgame
       (@gameplay.ai.stack.length + @gameplay.ai.discard.length + 1)
     end
 
-    def challenge_participants(result)
+    def challenge_participants(result, question = @questions.sample, input = STDIN, output = STDOUT, rnd_src = rand)
       if result[:winner] == @gameplay.player
-        challenge_player(result)
+        challenge_player(result, question, input, output)
       else
-        challenge_ai(result)
+        challenge_ai(result, output, rnd_src)
       end
     end
 
