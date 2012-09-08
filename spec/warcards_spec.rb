@@ -57,14 +57,14 @@ module Cardgame
       end
 
       it "asks if I want to continue" do
-        input  = StringIO.new("\n")
+        input = StringIO.new("\n")
         output = StringIO.new("")
         @game.continue?(input, output)
         output.string.must_equal "go again?\n"
       end
 
       it "tells me I ended the game if I say 'n'" do
-        input  = StringIO.new("n")
+        input = StringIO.new("n")
         output = StringIO.new("")
         @game.continue?(input, output, :no)
         output.string.must_match /.*You ended the game.*/
@@ -73,7 +73,7 @@ module Cardgame
 
     describe "#output_cli" do
       def setup
-        @game     = Game.new
+        @game = Game.new
         @gameplay = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
         @gameplay.ai_cards.clear << (Card.new(:suit => :clubs, :value => 2))
         @gameplay.player_cards.clear << (Card.new(:suit => :clubs, :value => 13))
@@ -109,9 +109,9 @@ module Cardgame
     describe "#test_player" do
       def setup
         @questions = Querinator::Game.new.get_questions("spec/test_question_file.txt")
-        @input     = StringIO.new("\n")
-        @output    = StringIO.new("")
-        @game      = Game.new
+        @input = StringIO.new("\n")
+        @output = StringIO.new("")
+        @game = Game.new
       end
 
       it "asks the player a question" do
@@ -132,9 +132,9 @@ module Cardgame
 
     describe "#challenge_player" do
       def setup
-        @game      = Game.new
+        @game = Game.new
         @questions = Querinator::Game.new.get_questions("spec/test_question_file.txt")
-        @gameplay  = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
+        @gameplay = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
         @gameplay.ai_cards.clear << (Card.new(:suit => :clubs, :value => 2))
         @gameplay.player_cards.clear << (Card.new(:suit => :clubs, :value => 13))
         @result = @gameplay.contest
@@ -156,7 +156,7 @@ module Cardgame
 
     describe "#challenge_ai" do
       def setup
-        @game     = Game.new
+        @game = Game.new
         @gameplay = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
         @gameplay.ai_cards.clear << (Card.new(:suit => :clubs, :value => 12))
         @gameplay.player_cards.clear << (Card.new(:suit => :clubs, :value => 3))
@@ -170,22 +170,63 @@ module Cardgame
       end
     end
 
-    describe "#challenge_participants" do
+    def challenge_partic_setup(args)
+      @game = Game.new
+      @questions = Querinator::Game.new.get_questions("spec/test_question_file.txt")
+      @gameplay = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
+      @gameplay.ai_cards.clear << (args[:ai_card])
+      @gameplay.player_cards.clear << (args[:player_card])
+      @result = @gameplay.contest
+      @output = StringIO.new("")
+      @input = StringIO.new("incorrect answer\n")
+    end
+
+    describe "#challenge_participants player" do
       def setup
-        @game      = Game.new
-        @questions = Querinator::Game.new.get_questions("spec/test_question_file.txt")
-        @gameplay  = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
-        @gameplay.ai_cards.clear << (Card.new(:suit => :clubs, :value => 2))
-        @gameplay.player_cards.clear << (Card.new(:suit => :clubs, :value => 13))
-        @result = @gameplay.contest
-        @output = StringIO.new("")
-        @input = StringIO.new("foo\n")
+        challenge_partic_setup(:ai_card => Card.new(:suit => :clubs, :value => 2), :player_card => Card.new(:suit => :clubs, :value => 11))
       end
 
       it "calls #challenge_player if player has high card" do
         @game.challenge_participants(@result, @questions.first, @input, @output, 0.1)
-        @output.string.must_match /abc/
+        @output.string.must_match /#{@questions.first.pose}/
+      end
+    end
+
+    describe "#challenge_participants ai" do
+      def setup
+        challenge_partic_setup(:ai_card => Card.new(:suit => :clubs, :value => 12), :player_card => Card.new(:suit => :clubs, :value => 1))
+      end
+
+      it "calls #challenge_ai if ai has high card" do
+        result = @gameplay.contest
+        @game.challenge_participants(result, @questions.first, @input, @output, 0.1)
+        @output.string.must_match /Ai was correct\.\n/
+      end
+    end
+
+    describe "#get_filename" do
+      def setup
+        @output = StringIO.new("")
+        @input = StringIO.new("incorrect answer\n")
+        @game = Game.new
+      end
+
+      it "displays the path of the sample question file" do
+        @game.get_filename(@input, @output)
+        @output.string.must_match "spec/test_question_file.txt"
+      end
+
+      it "returns an absolute path if a path is passed in" do
+        input = StringIO.new("~/.bash_history\n")
+        @game.get_filename(input, @output).must_match ".bash_history"
+      end
+
+      it "returns the path to the sample question if the user hits enter" do
+        input = StringIO.new("\n")
+        @game.get_filename(input, @output).must_equal "spec/test_question_file.txt"
       end
     end
   end
+
+
 end

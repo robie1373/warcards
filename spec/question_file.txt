@@ -1,0 +1,12 @@
+[{"question":"Do you get Tom Servo?","answer":"Nobody does. I'm the wind baby."},
+{"question":"Was there ever a monster?","answer":"We will never speak of this movie again."},
+{"question":"What is 2+2","answer":"4"},
+{"question":"What is the capital of Colorado?","answer":"Denver"},
+{"question":"Which is more dense: lead or meatloaf?","answer":"lead"},
+{"question":"What is the chemical symbol for gold?","answer":"Au"},
+{"question":"Does Robie kick butt?","answer":"yes"},
+{"question":"Which is better, Ruby or Python?","answer":"Ruby, duh!"},
+{"question":"What does every rose have at least one of?","answer":"thorns"},
+{"question":"The english word for 'azul' is...","answer":"blue"},
+{"question":"This is a.) fun; b.) boring; c.) neither of the above","answer":"a"}
+]

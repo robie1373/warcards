@@ -14,7 +14,6 @@ module Cardgame
 
     end
 
-    # TODO finish this up to make #output_cli tests easier
     def gameplay(args)
       deck = args[:deck]
       player = args[:player]
@@ -78,17 +77,18 @@ module Cardgame
           @gameplay.war?
           result = @gameplay.contest
           output_cli(result)
+          challenge_participants(result)
           continue?
           @gameplay.discard(result)
         end
       end
     end
 
-    def get_filename
-      puts(Dir.glob "**/*.txt")
+    def get_filename(input = STDIN, output = STDOUT)
+      output.puts(Dir.glob "**/*.txt")
       sample_questions = "spec/test_question_file.txt"
-      puts "What question file?\n(Just hit enter to use the sample questions.)\nfilename: "
-      filename = gets.chomp
+      output.puts "What question file?\n(Just hit enter to use the sample questions.)\nfilename: "
+      filename = input.gets.chomp
       if File.file?(File.expand_path(filename))
         File.expand_path(filename)
       else
@@ -110,7 +110,7 @@ module Cardgame
     def output_cli(result, output = STDOUT)
       output.puts "#{result[:winner].name} won"
       output.puts "Player has #{player_holdings} cards.\tAI has #{ai_holdings} cards."
-      challenge_participants(result)
+      #challenge_participants(result)
       # TODO get challenge_participants out of here. No longer belongs. Causing hard tests.
     end
 
@@ -127,7 +127,7 @@ module Cardgame
     end
 
     def challenge_participants(result, question = @questions.sample, input = STDIN, output = STDOUT, rnd_src = rand)
-      if result[:winner] == @gameplay.player
+      if result[:winner].class == Player
         challenge_player(result, question, input, output)
       else
         challenge_ai(result, output, rnd_src)

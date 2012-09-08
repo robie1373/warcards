@@ -25,6 +25,9 @@ GEM
       rb-fsevent (~> 0.9.1)
       rb-inotify (~> 0.8.8)
     minitest (3.3.0)
+    minitest-growl (0.0.3)
+      growl
+      minitest
     minitest-reporters (0.9.0)
       ansi
       builder
@@ -60,6 +63,7 @@ DEPENDENCIES
   growl (~> 1.0.3)
   guard (~> 1.2.3)
   guard-minitest (~> 0.5.0)
+  minitest-growl
   minitest-reporters (~> 0.9.0)
   minitest-spec (~> 0.0.2)
   rb-fsevent (~> 0.9.1)

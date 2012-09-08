@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rb-fsevent', '~>0.9.1'
   gem.add_development_dependency 'minitest-spec', '~>0.0.2'
   gem.add_development_dependency 'minitest-reporters', '~>0.9.0'
+  gem.add_development_dependency 'minitest-growl'
   gem.add_development_dependency 'guard', '~>1.2.3'
   gem.add_development_dependency 'guard-minitest', '~>0.5.0'
   gem.add_development_dependency 'growl', '~>1.0.3'
