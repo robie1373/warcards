@@ -131,6 +131,7 @@ module Cardgame
         output.puts %Q{Oooh. I'm sorry. The correct answer was "#{question.answer}". #{@gameplay.ai.name} became the winner.}
         result[:winner] = @gameplay.ai
       end
+      #continue?(input, output)
     end
 
     def test_player(question, input = STDIN, output = STDOUT)

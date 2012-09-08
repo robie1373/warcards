@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    warcards (0.0.4)
+    warcards (0.0.5)
       bundler (~> 1.1)
       querinator
       rake (~> 0.9.2)

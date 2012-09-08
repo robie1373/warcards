@@ -173,6 +173,12 @@ module Cardgame
         @game.challenge_player(@result, @questions.first, input, @output)
         @output.string.split("\n").last.must_match /^Oooh\. I'm sorry/
       end
+
+      #it "asks me if I want to continue" do
+      #  input = StringIO.new("Who's Tom Servo?\n\n")
+      #  @game.challenge_player(@result, @questions.first, input, @output)
+      #  @output.string.split("\n").last.must_match /go again\?/
+      #end
     end
 
     describe "#challenge_ai" do
