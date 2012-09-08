@@ -11,7 +11,7 @@ module Cardgame
       @gameplay.shuffle
       @gameplay.deal
       @output = Struct.new(:winner, :player_feedback, :ai_feedback, :posed)
-
+      @slow = TRUE
     end
 
     def gameplay(args)
@@ -75,10 +75,20 @@ module Cardgame
     #end
 
     def output_cli(result, output = STDOUT)
+      graph = build_graph(player_holdings, ai_holdings)
       output.puts "\n#{result[:winner].name} has the high card."
       output.puts "Player has #{player_holdings} cards.\tAI has #{ai_holdings} cards."
+      output.puts graph
       #challenge_participants(result)
       # TODO get challenge_participants out of here. No longer belongs. Causing hard tests.
+    end
+
+    def build_graph(player_holdings, ai_holdings)
+      graph = ""
+      player_holdings.times { graph << "p" }
+      graph << "|"
+      ai_holdings.times { graph << "a" }
+      graph
     end
 
     def player_holdings
@@ -107,6 +117,9 @@ module Cardgame
       else
         output.puts "Ai was wrong. #{@gameplay.player.name} became the winner!"
         result[:winner] = @gameplay.player
+        if @slow
+          sleep 0.75
+        end
       end
     end
 

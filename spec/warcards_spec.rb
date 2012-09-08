@@ -90,6 +90,27 @@ module Cardgame
         @game.output_cli(@result, @output)
         @output.string.must_match /Player has 27 cards.*AI has 27 cards/
       end
+
+      it "shows a graph representation of the deck" do
+        @game.output_cli(@result, @output)
+        @output.string.must_match /pppppppppppppppppppppppppp|aaaaaaaaaaaaaaaaaaaaaaaaaa/
+      end
+    end
+
+    describe "#build_graph" do
+      def setup
+        @game = Game.new
+        @gameplay = @game.gameplay(deck: Deck.new, player: Player.new, ai: Ai.new)
+        @gameplay.ai_cards.clear << (Card.new(:suit => :clubs, :value => 2))
+        @gameplay.player_cards.clear << (Card.new(:suit => :clubs, :value => 13))
+        @result = @gameplay.contest
+        @output = StringIO.new("")
+      end
+
+      it "shows a graph representation of the deck" do
+        res = @game.build_graph((@game.player_holdings - 1), (@game.ai_holdings - 1))
+        res.must_equal "pppppppppppppppppppppppppp|aaaaaaaaaaaaaaaaaaaaaaaaaa"
+      end
     end
 
     describe "#test_ai" do
