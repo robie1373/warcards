@@ -28,20 +28,25 @@ module Cardgame
       end
       @questions = Querinator::Game.new.get_questions(filename)
       loop do
-        end_game = @gameplay.game_over?
+        begin
+          end_game = @gameplay.game_over?
 
-        if end_game[:over?]
-          puts "Game over #{end_game[:winner]} won!"
-          exit
-        else
-          @gameplay.rearm?
-          @gameplay.show_cards
-          @gameplay.war?
-          result = @gameplay.contest
-          output_cli(result)
-          challenge_participants(result)
-          continue?
-          @gameplay.discard(result)
+          if end_game[:over?]
+            puts "Game over #{end_game[:winner]} won!"
+            exit
+          else
+            @gameplay.rearm?
+            @gameplay.show_cards
+            @gameplay.war?
+            result = @gameplay.contest
+            output_cli(result)
+            challenge_participants(result)
+            #continue?
+            @gameplay.discard(result)
+          end
+        rescue SignalException => e
+          puts "\n\nThanks for playing!"
+          exit(status=1)
         end
       end
     end
@@ -58,19 +63,19 @@ module Cardgame
       end
     end
 
-    def continue?(input = STDIN, output = STDOUT, really_end = :yes)
-      output.puts("go again?\n")
-      next_round = input.gets
-      if next_round.downcase.chomp.include? "n"
-        output.puts "You ended the game"
-        if really_end == :yes
-          exit
-        end
-      end
-    end
+    #def continue?(input = STDIN, output = STDOUT, really_end = :yes)
+    #  output.puts("go again?\n")
+    #  next_round = input.gets
+    #  if next_round.downcase.chomp.include? "n"
+    #    output.puts "You ended the game"
+    #    if really_end == :yes
+    #      exit
+    #    end
+    #  end
+    #end
 
     def output_cli(result, output = STDOUT)
-      output.puts "#{result[:winner].name} won"
+      output.puts "\n#{result[:winner].name} has the high card."
       output.puts "Player has #{player_holdings} cards.\tAI has #{ai_holdings} cards."
       #challenge_participants(result)
       # TODO get challenge_participants out of here. No longer belongs. Causing hard tests.
@@ -98,7 +103,7 @@ module Cardgame
 
     def challenge_ai(result, output = STDOUT, rnd_src = rand)
       if test_ai(rnd_src)
-        output.puts "Ai was correct."
+        output.puts "Ai was correct. Ai wins the round."
       else
         output.puts "Ai was wrong. #{@gameplay.player.name} became the winner!"
         result[:winner] = @gameplay.player

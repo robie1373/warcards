@@ -51,25 +51,25 @@ module Cardgame
       end
     end
 
-    describe "#continue?" do
-      def setup
-        @game = Game.new
-      end
-
-      it "asks if I want to continue" do
-        input = StringIO.new("\n")
-        output = StringIO.new("")
-        @game.continue?(input, output)
-        output.string.must_equal "go again?\n"
-      end
-
-      it "tells me I ended the game if I say 'n'" do
-        input = StringIO.new("n")
-        output = StringIO.new("")
-        @game.continue?(input, output, :no)
-        output.string.must_match /.*You ended the game.*/
-      end
-    end
+    #describe "#continue?" do
+    #  def setup
+    #    @game = Game.new
+    #  end
+    #
+    #  it "asks if I want to continue" do
+    #    input = StringIO.new("\n")
+    #    output = StringIO.new("")
+    #    @game.continue?(input, output)
+    #    output.string.must_equal "go again?\n"
+    #  end
+    #
+    #  it "tells me I ended the game if I say 'n'" do
+    #    input = StringIO.new("n")
+    #    output = StringIO.new("")
+    #    @game.continue?(input, output, :no)
+    #    output.string.must_match /.*You ended the game.*/
+    #  end
+    #end
 
     describe "#output_cli" do
       def setup
@@ -83,7 +83,7 @@ module Cardgame
 
       it "displays the comparison winner" do
         @game.output_cli(@result, @output)
-        @output.string.must_match /^Player won/
+        @output.string.must_match /^Player has the high card\./
       end
 
       it "displays the number of cards each participant has" do
@@ -164,9 +164,14 @@ module Cardgame
         @output = StringIO.new("")
       end
 
-      it "tells me the ai won" do
+      it "tells me the ai lost" do
         @game.challenge_ai(@result, @output, 0.9)
         @output.string.must_equal "Ai was wrong. Player became the winner!\n"
+      end
+
+      it "tells me the ai won" do
+        @game.challenge_ai(@result, @output, 0.1)
+        @output.string.must_equal "Ai was correct. Ai wins the round.\n"
       end
     end
 
@@ -200,7 +205,7 @@ module Cardgame
       it "calls #challenge_ai if ai has high card" do
         result = @gameplay.contest
         @game.challenge_participants(result, @questions.first, @input, @output, 0.1)
-        @output.string.must_match /Ai was correct\.\n/
+        @output.string.must_match /Ai was correct\. Ai wins the round\.\n/
       end
     end
 
