@@ -21,44 +21,6 @@ module Cardgame
       Gameplay.new(:deck => deck, :player => player, :ai => ai)
     end
 
-
-
-    ##def output
-    ##  @output
-    ##end
-    ##
-    ##def rearm?
-    ##  @gameplay.rearm?
-    ##end
-    ##
-    ##def show_cards
-    ##  @gameplay.show_cards
-    ##end
-    ##
-    ##def war?
-    ##  @gameplay.contest
-    ##end
-    ##
-    ##def contest
-    ##  @gameplay.contest
-    ##end
-    ##
-    ##def discard(result)
-    ##  @gameplay.discard(result)
-    ##end
-    ##
-    ##def game_over?
-    ##  @gameplay.game_over?
-    ##end
-    #
-    #def player
-    #  @player
-    #end
-    #
-    #def ai
-    #  @ai
-    #end
-
     def run
       filename = get_filename
       until File.file? filename

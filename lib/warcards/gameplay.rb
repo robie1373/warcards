@@ -61,11 +61,11 @@ module Cardgame
       { :winner => winner, :player_cards => @player_cards, :ai_cards => @ai_cards }
     end
 
-    def war?
+    def war?(output = STDOUT)
       while @ai_cards.last.value == @player_cards.last.value
         rearm?
         #TODO make the following line a flag or something so the view code can decide to show it or not.
-        puts "WAR!!!"
+        output.puts "WAR!!!"
         show_cards
       end
     end

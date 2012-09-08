@@ -102,6 +102,7 @@ module Cardgame
 
     describe "#war" do
       it "must play war when there is a draw" do
+        output = StringIO.new("")
         card_ai_1 = (Card.new(:suit => :clubs, :value => 5))
         card_ai_2 = (Card.new(:suit => :spades, :value => 4))
         card_ai_3 = (Card.new(:suit => :clubs, :value => 4))
@@ -116,7 +117,7 @@ module Cardgame
         @gameplay.player.stack << card_player_3
 
         @gameplay.show_cards
-        @gameplay.war?
+        @gameplay.war?(output)
         result = @gameplay.contest
 
         result[:ai_cards].must_be_instance_of Array
