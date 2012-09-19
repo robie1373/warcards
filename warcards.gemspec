@@ -22,7 +22,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'minitest-growl'
   gem.add_development_dependency 'guard', '~>1.2.3'
   gem.add_development_dependency 'guard-minitest', '~>0.5.0'
-  gem.add_development_dependency 'growl', '~>1.0.3'
+  gem.add_development_dependency 'terminal-notifier-guard'
+  #gem.add_development_dependency 'growl', '~>1.0.3'
   gem.add_development_dependency 'turn', '~>0.9.6'
   gem.add_development_dependency 'simplecov', '~>0.6'
 

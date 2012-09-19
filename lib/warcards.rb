@@ -14,6 +14,18 @@ module Cardgame
       @slow = TRUE
     end
 
+    def deck
+      @deck
+    end
+
+    def ai
+      @ai
+    end
+
+    def player
+      @player
+    end
+
     def gameplay(args)
       deck = args[:deck]
       player = args[:player]
