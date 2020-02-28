@@ -30,6 +30,6 @@ Gem::Specification.new do |gem|
   # specify run dependencies here
   gem.add_dependency 'bundler', "~>1.1"
   gem.add_dependency 'querinator'
-  gem.add_dependency 'rake', '~>0.9.2'
+  gem.add_dependency 'rake', '>=0.9.2', '<13.1.0'
 
 end
